@@ -1,5 +1,7 @@
 
 import { _decorator, Component, Node } from 'cc';
+import { chargeEnd } from './chargeEnd';
+import { CircuitItem } from './CircuitItem';
 const { ccclass, property } = _decorator;
 
 /**
@@ -15,21 +17,8 @@ const { ccclass, property } = _decorator;
  */
  
 @ccclass('Battery')
-export class Battery extends Component {
-    // [1]
-    // dummy = '';
-
-    // [2]
-    @property({type:Node})
-    positiveEnd:Node = null;
-    
-    @property({type:Node})
-    negativeEnd :Node = null;
-
-  
-    start () {
-        // [3]
-    }
+export class Battery extends CircuitItem {
+    type=2;
 
     // update (deltaTime: number) {
     //     // [4]

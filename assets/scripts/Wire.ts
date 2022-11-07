@@ -1,5 +1,7 @@
 
 import { _decorator, Component, Node,Vec3,EventTouch,Input, Graphics, PhysicsSystem2D, UITransform } from 'cc';
+import { chargeEnd } from './chargeEnd';
+import { CircuitItem } from './CircuitItem';
 const { ccclass, property } = _decorator;
 
 /**
@@ -15,43 +17,30 @@ const { ccclass, property } = _decorator;
  */
  
 @ccclass('Wire')
-export class Wire extends Component {
-    // [1]
-    // dummy = '';
-
-    // [2]
-     @property({type:Node})
-    positiveEnd:Node = null;
-    
-    @property({type:Node})
-    negativeEnd :Node = null;
-    
+export class Wire extends CircuitItem {
+ 
     @property({type:Graphics})
     graphics:Graphics = null;
-
+    type=0;
+    checkConnection(){
+        super.checkConnection();
+        this.updateLine();
+    }
+        
+       
     start () {
         // [3]
-        this.positiveEnd.on(Input.EventType.TOUCH_START, this.updateLine, this);
-        this.negativeEnd.on(Input.EventType.TOUCH_START, this.updateLine, this);
-        this.positiveEnd.on(Input.EventType.TOUCH_MOVE, this.positiveEndTouchMove, this);
-        this.negativeEnd.on(Input.EventType.TOUCH_MOVE, this.negativeEndEndTouchMove, this);
-       
+        this.ends.forEach(element => {
+            element.init(this,true);
+        });
     }
-    positiveEndTouchMove(event: EventTouch) {
-        this.positiveEnd.worldPosition=new Vec3(event.getUILocation().x,event.getUILocation().y,0);
-        this.updateLine();
-    }
-    negativeEndEndTouchMove(event: EventTouch) {
-        this.negativeEnd.worldPosition=new Vec3(event.getUILocation().x,event.getUILocation().y,0);
-        this.updateLine();
-
-    }
+   
      updateLine () {
         this.graphics.clear();
         this.graphics.lineWidth = 10;
         this.graphics.fillColor.fromHEX('#ff0000');
-        let pos1=this.graphics.node.getComponent(UITransform).convertToNodeSpaceAR(this.negativeEnd.worldPosition);
-        let pos2=this.graphics.node.getComponent(UITransform).convertToNodeSpaceAR(this.positiveEnd.worldPosition);
+        let pos1=this.graphics.node.getComponent(UITransform).convertToNodeSpaceAR(this.ends[0].node.worldPosition);
+        let pos2=this.graphics.node.getComponent(UITransform).convertToNodeSpaceAR(this.ends[1].node.worldPosition);
       
         this.graphics.moveTo (pos1.x,pos1.y)
          this.graphics.lineTo(pos2.x,pos2.y);
@@ -59,6 +48,7 @@ export class Wire extends Component {
          this.graphics.stroke();
          this.graphics.fill();
      }
+  
 }
 
 /**

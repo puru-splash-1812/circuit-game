@@ -1,5 +1,8 @@
 
-import { _decorator, Component, Node } from 'cc';
+import { _decorator, Component, Node, Sprite, SpriteFrame, Color, CCInteger } from 'cc';
+import { chargeEnd } from './chargeEnd';
+import { Level } from './Level';
+import { CircuitItem } from './CircuitItem';
 const { ccclass, property } = _decorator;
 
 /**
@@ -15,20 +18,49 @@ const { ccclass, property } = _decorator;
  */
  
 @ccclass('Bulb')
-export class Bulb extends Component {
-    // [1]
-    // dummy = '';
-
-    // [2]
-    @property({type:Node})
-    positiveEnd:Node = null;
+export class Bulb extends CircuitItem {
+   
     
-    @property({type:Node})
-    negativeEnd :Node = null;
-    
+    @property({type:Sprite})
+    bulbSprite :Sprite = null;
 
+    @property({type:SpriteFrame})
+    frames:SpriteFrame[] = [];
+    
+    @property({type:Sprite})
+    stripe:Sprite= null;
+    
+    hexCode:number  = 0;
+    type=1;
+  
     start () {
         // [3]
+        super.start();
+        let color=Color.BLUE;
+        switch(this.hexCode){
+            case 0:Color.BLUE;
+            case 1:Color.RED;
+            default:Color.YELLOW;
+    
+        }
+        this.stripe.color=color;
+    }
+    checkConnection(){
+        
+        super.checkConnection();
+        console.log(this.node.name+"checkConnection"+this.ends[0]._connected,this.ends[1]._connected);
+        if(this.ends[0]._connected&&this.ends[1]._connected)
+            this.connected();
+    }
+    connected(){
+        super.connected();
+        if(this._level.isCircuitComplete(this))
+        this.bulbSprite.spriteFrame=this.frames[1];
+    }
+    
+    disConnected(){
+        super.disConnected();
+        this.bulbSprite.spriteFrame=this.frames[0];
     }
 
     // update (deltaTime: number) {
