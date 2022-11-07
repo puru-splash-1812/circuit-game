@@ -26,11 +26,7 @@ export class Battery extends Component {
     @property({type:Node})
     negativeEnd :Node = null;
 
-    start () {
-        // [3]
-   
-       
-    }
+  
     start () {
         // [3]
     }
