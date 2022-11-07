@@ -28,6 +28,11 @@ export class Battery extends Component {
 
     start () {
         // [3]
+   
+       
+    }
+    start () {
+        // [3]
     }
 
     // update (deltaTime: number) {
