@@ -588,6 +588,10 @@
     "__prefab": {
       "__id__": 39
     },
+    "onItems": [
+      null
+    ],
+    "offItems": [],
     "wires": [
       null,
       null
@@ -625,6 +629,9 @@
       },
       {
         "__id__": 47
+      },
+      {
+        "__id__": 49
       }
     ],
     "nestedPrefabInstanceRoots": [
@@ -732,6 +739,29 @@
     "__type__": "cc.TargetInfo",
     "localID": [
       "e9n6e+Vo9Ll5UGyqgPxBFL"
+    ]
+  },
+  {
+    "__type__": "cc.TargetOverrideInfo",
+    "source": {
+      "__id__": 38
+    },
+    "sourceInfo": null,
+    "propertyPath": [
+      "onItems",
+      "0"
+    ],
+    "target": {
+      "__id__": 2
+    },
+    "targetInfo": {
+      "__id__": 50
+    }
+  },
+  {
+    "__type__": "cc.TargetInfo",
+    "localID": [
+      "dfyZ2dJ/pBVqU7ytXthOzT"
     ]
   }
 ]

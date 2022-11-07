@@ -61,6 +61,7 @@ export class Bulb extends CircuitItem {
     disConnected(){
         super.disConnected();
         this.bulbSprite.spriteFrame=this.frames[0];
+    
     }
 
     // update (deltaTime: number) {

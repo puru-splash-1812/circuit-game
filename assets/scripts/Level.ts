@@ -23,6 +23,10 @@ const { ccclass, property } = _decorator;
 export class Level extends Component {
     // [1]
     // dummy = '';
+    @property({type:CircuitItem})
+    onItems:CircuitItem[] = [];
+    @property({type:CircuitItem})
+    offItems:CircuitItem[] = [];
     @property({type:Wire})
     wires:Wire[] = [];
     @property({type:Bulb})
